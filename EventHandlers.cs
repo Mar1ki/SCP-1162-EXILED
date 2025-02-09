@@ -1,4 +1,6 @@
+using Exiled.API.Enums;
 using Exiled.API.Extensions;
+using Exiled.API.Features;
 using Exiled.API.Features.Items;
 using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
@@ -12,10 +14,11 @@ namespace SCP1162
         private readonly Plugin _plugin;
         public EventHandlers(Plugin plugin) => _plugin = plugin;
 
+        
         public void OnItemDropped(DroppingItemEventArgs ev)
         {
-            if(!ev.IsAllowed) return;
-            if (Vector3.Distance(ev.Player.Position, RoleTypeId.Scp173.GetRandomSpawnLocation().Position) <= 8.2f)
+            if (!ev.IsAllowed) return;
+            if (Vector3.Distance(ev.Player.Position, Room.Get(RoomType.Lcz173).WorldPosition(new Vector3(16.6f, 11.97f, 7.9f))) <= 8.2f)
             {
                 if (_plugin.Config.UseHints)
                     ev.Player.ShowHint(_plugin.Config.ItemDropMessage, _plugin.Config.ItemDropMessageDuration);
